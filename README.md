@@ -1,6 +1,6 @@
-# airbnb
+# airbnb dataset
 ---
-title: "fianl project"
+title: "final project"
 date: "08/08/2019"
 ---
 
