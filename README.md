@@ -180,7 +180,8 @@ dbGetQuery(con, "CREATE TABLE properties (
            ON UPDATE CASCADE
 );  ")
 
-#read data
+
+#read data from source
 data = read.csv("new_data.csv")
 review = read.csv("reviews (1).csv")
 
