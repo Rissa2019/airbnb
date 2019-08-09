@@ -202,9 +202,6 @@ reviews$review_id<- 1:nrow(reviews)
 names(reviews)[3]<-"list_id"
 dbWriteTable(con, name="reviews", value= reviews, row.names=FALSE, append=TRUE)
 
-
-
-
 # Create table room_types
 
 room_types_df <- as.data.frame(data[c('room_type')][!duplicated(data[c('room_type')]),])
@@ -240,9 +237,6 @@ hosts_df <- hosts_df[c("host_id", "host_name", "host_url", "response_id")]
 
 dbWriteTable(con, name="hosts", value=hosts_df
              , row.names=FALSE, append=TRUE)
-
-
-
 
 # Create table countries
 
