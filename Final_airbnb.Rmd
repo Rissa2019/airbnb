@@ -1,3 +1,4 @@
+# clean environment
 rm(list=ls()) 
 
 # Install required packages
