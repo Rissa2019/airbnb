@@ -25,3 +25,4 @@ data_reviews[data_reviews=="'"]  <- NA
 
 ### Save new dataset
 write.csv(new_data, file = "new_data.csv")
+write.csv(data_reviews, file = "reviews.csv")
