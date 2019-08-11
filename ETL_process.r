@@ -41,7 +41,6 @@ dbGetQuery(con, "CREATE TABLE hosts (
            ON UPDATE CASCADE
 );")
 
-
 dbGetQuery(con, "CREATE TABLE cities (
            city_id		 varchar(20),
            city     	 varchar(50),
@@ -184,48 +183,38 @@ list <- data[, 2:3]
 dbWriteTable(con, name="list", value=list, row.names=FALSE, append=TRUE)
 
 # Get data for bed_types
-
 bed_types <- data[c('bed_type')][!duplicated(data[c('bed_type')]),,drop= F]
 bed_types$bed_type_id<-1:nrow(bed_types)
 dbWriteTable(con, name="bed_types", value=bed_types, row.names=FALSE, append=TRUE)
 
 # Get data for reviewers
-
 reviewers <- review[c('reviewer_id','reviewer_name')][!duplicated(review[c('reviewer_id','reviewer_name')]),,drop= F]
 dbWriteTable(con, name="reviewers", value= reviewers, row.names=FALSE, append=TRUE)
 
 # Get data for reviews
-
 reviews<- review[,c('comments','reviewer_id','listing_id','date')]
 reviews$review_id<- 1:nrow(reviews)
-
 names(reviews)[3]<-"list_id"
 dbWriteTable(con, name="reviews", value= reviews, row.names=FALSE, append=TRUE)
 
 # Create table room_types
-
 room_types_df <- as.data.frame(data[c('room_type')][!duplicated(data[c('room_type')]),])
 names(room_types_df)[1]<-"room_type"
 room_types_df$room_type_id<-1:nrow(room_types_df)
-
 dbWriteTable(con, name="room_types", value=room_types_df
              , row.names=FALSE, append=TRUE)
 
 # Create table property_type
-
 property_types_df <- as.data.frame(data[c('property_type')][!duplicated(data[c('property_type')]),])
 names(property_types_df)[1]<-"property_type"
 property_types_df$property_type_id<-1:nrow(property_types_df)
-
 dbWriteTable(con, name="property_types", value=property_types_df
              , row.names=FALSE, append=TRUE)
 
 # Create table responses
-
 responses_df <- as.data.frame(data[c('response')][!duplicated(data[c('response')]),])
 names(responses_df)[1]<-"response"
 responses_df$response_id<-1:nrow(responses_df)
-
 dbWriteTable(con, name="responses", value=responses_df
              , row.names=FALSE, append=TRUE)
 
@@ -234,41 +223,34 @@ dbWriteTable(con, name="responses", value=responses_df
 hosts_df <- as.data.frame(data[c('host_id', 'host_name', 'host_url', 'response')][!duplicated(data[c('host_id', 'host_name', 'host_url', 'response')]),])
 hosts_df <- merge(hosts_df, responses_df, by.x = 'response', by.y = 'response')
 hosts_df <- hosts_df[c("host_id", "host_name", "host_url", "response_id")]
-
 dbWriteTable(con, name="hosts", value=hosts_df
              , row.names=FALSE, append=TRUE)
 
 # Create table countries
-
 data$country="Germany"
 countries_df <- as.data.frame(data[c('country')][!duplicated(data[c('country')]),])
 names(countries_df)[1]<-"country"
 countries_df$country_id<-1:nrow(countries_df)
 countries_df <- countries_df[c('country_id', 'country')]
-
 dbWriteTable(con, name="countries", value=countries_df
              , row.names=FALSE, append=TRUE)
 
 
 # Create table states
-
 data$state="Berlin"
 states_df <- as.data.frame(data[c('state')][!duplicated(data[c('state')]),])
 names(states_df)[1]<-"state"
 states_df$state_id<-1:nrow(states_df)
 states_df <- states_df[c('state_id', 'state')]
-
 dbWriteTable(con, name="states", value=states_df
              , row.names=FALSE, append=TRUE)
 
 # Create table cities
-
 data$city="Berlin"
 cities_df <- as.data.frame(data[c('city')][!duplicated(data[c('city')]),])
 names(cities_df)[1]<-"city"
 cities_df$city_id<-1:nrow(cities_df)
 cities_df <- cities_df[c('city_id', 'city')]
-
 dbWriteTable(con, name="cities", value=cities_df
              , row.names=FALSE, append=TRUE)
 
@@ -280,21 +262,17 @@ names(neighborhood_df)[3]<-"neighborhood_id"
 neighborhood_df1 <- as.data.frame(neighborhood_df[,])
 neighborhood_df <- neighborhood_df[c('neighborhood_id', 'neighborhood_group')]
 neighborhood_df <- neighborhood_df[!duplicated(neighborhood_df),]
-
 dbWriteTable(con, name="neighborhood", value=neighborhood_df
              , row.names=FALSE, append=TRUE)
 
 # Create table neighborhood_overview
-
 neighborhood_overview_df <- as.data.frame(neighborhood_df1[c('neighborhood_overview', 'neighborhood_id')][!duplicated(neighborhood_df1[c('neighborhood_overview', 'neighborhood_id')]),])
 neighborhood_overview_df$neighborhood_overview_id<-1:nrow(neighborhood_overview_df)
 neighborhood_overview_df <- neighborhood_overview_df[c('neighborhood_overview_id', 'neighborhood_overview', 'neighborhood_id')]
-
 dbWriteTable(con, name="neighborhood_overview", value=neighborhood_overview_df
              , row.names=FALSE, append=TRUE)
 
 # Create table locations
-
 locations_df <- as.data.frame(data[c('longitude', 'latitude', 'neighborhood_group', 'city', 'state', 'country')]
                               [!duplicated(data[c('longitude', 'latitude', 'neighborhood_group', 'city', 'state', 'country')]),])
 locations_df$location_id<-1:nrow(locations_df)
@@ -303,12 +281,10 @@ locations_df <- merge(locations_df, cities_df, by.x = 'city', by.y = 'city') #ci
 locations_df <- merge(locations_df, states_df, by.x = 'state', by.y = 'state') #state_id
 locations_df <- merge(locations_df, countries_df, by.x = 'country', by.y = 'country') #country_id
 locations_df <- locations_df[c('location_id', 'neighborhood_id', 'latitude', 'longitude', 'city_id', 'state_id', 'country_id')]
-
 dbWriteTable(con, name="locations", value=locations_df
              , row.names=FALSE, append=TRUE)
 
 # Create table properties
-
 properties_df <- as.data.frame(data[c('name', 'price','list_id','host_id','description', 'notes','transit','accommodates','bathrooms','bedrooms', 'latitude','longitude', 'property_type', 'room_type', 'bed_type')])
 properties_df$price = as.numeric(gsub("[$,]", "", properties_df$price))
 properties_df$properties_id<-1:nrow(properties_df)
@@ -319,7 +295,6 @@ properties_df <- merge(properties_df, room_types_df, by.x = 'room_type', by.y = 
 properties_df <- merge(properties_df, bed_types, by.x = 'bed_type', by.y = 'bed_type') #bed_type_id
 properties_df$location_id <- properties_df$location_id.y
 properties_df <- properties_df[c('properties_id','name', 'price','list_id','host_id', 'location_id','property_type_id','room_type_id','bed_type_id','description','notes','transit','accommodates','bathrooms','bedrooms')]
-
 dbWriteTable(con, name="properties", value=properties_df
              , row.names=FALSE, append=TRUE)
 
