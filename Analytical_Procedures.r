@@ -6,7 +6,6 @@ FROM properties AS P
 JOIN property_types AS T ON T.property_type_id = P.property_type_id
 GROUP BY T.property_type
 ;")
-
 dbGetQuery(con, "SELECT * FROM AVG_PX_PROPERTY_TYPE;")
 
 # 2. Average price by neighborhood group in descending order
@@ -18,7 +17,6 @@ JOIN properties AS P ON P.location_id = L.location_id
 GROUP BY N.neighborhood_group
 ORDER BY avg_price DESC
 ;")
-
 dbGetQuery(con, "SELECT * FROM AVG_PX_NEIGHBORHOOD_GROUP;")
 
 
@@ -30,7 +28,6 @@ FROM public.reviews
 GROUP BY CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer)
 ORDER BY CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer) ASC
 ;")
-
 dbGetQuery(con, "SELECT * FROM NUMBER_OF_REVIEWS_EACH_MONTH;")
 
 
@@ -48,7 +45,6 @@ WHERE C.city = 'Berlin'
 GROUP BY PR.property_type
 ORDER BY count DESC
 ;")
-
 dbGetQuery(con, "SELECT * FROM MOST_COMMENTS_BERLIN_PROPERTY_TYPE;")
 
 
@@ -63,7 +59,6 @@ WHERE EXTRACT(YEAR FROM R.date) = 2018
 GROUP BY P.properties_id
 ORDER BY count DESC
 ;")
-
 dbGetQuery(con, "SELECT * FROM MOST_POP_PROPERTY_2018;")
 
 # 6. How many apartments are priced above $300?
@@ -74,7 +69,6 @@ FROM properties AS P
 JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
 WHERE P.price > 300 AND PR.property_type = 'Apartment'
 ;")
-
 dbGetQuery(con, "SELECT * FROM TOT_NUMBER_APT_HOST_INCENTIVIZED;")
 
 
@@ -87,7 +81,6 @@ JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
 JOIN hosts AS H ON H.host_id = P.host_id
 WHERE P.price > 300 AND PR.property_type = 'Apartment'
 ;")
-
 dbGetQuery(con, "SELECT * FROM HOST_INCENTIVIZED;")
 
 
@@ -99,7 +92,6 @@ FROM properties AS P
 JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
 GROUP BY PR.property_type
 ;")
-
 dbGetQuery(con, "SELECT * FROM AVG_NUMBER_ACCOMMODATES_PER_PROPERTY_TYPE;")
 
 
@@ -112,7 +104,6 @@ JOIN reviews AS R ON R.reviewer_id = RE.reviewer_id
 GROUP BY RE.reviewer_name
 ORDER BY reviews DESC
 ;")
-
 dbGetQuery(con, "SELECT * FROM REVIEWERS_WITH_MOST_NUMBER_OF_REVIEWS;")
 
 # 10. Hosts with most listings
@@ -125,6 +116,5 @@ GROUP BY H.host_id
 ORDER BY list_count DESC
 LIMIT 10
 ;")
-
 dbGetQuery(con, "SELECT * FROM TOP_10_HOSTS_WITH_MOST_LISTINGS;")
 
