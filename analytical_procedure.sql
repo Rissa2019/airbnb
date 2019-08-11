@@ -108,3 +108,9 @@ ORDER BY list_count DESC
 LIMIT 10;
 SELECT * FROM TOP_10_HOSTS_WITH_MOST_LISTINGS;
 
+#
+dbGetQuery(con, "SELECT * FROM TOT_NUMBER_APT_HOST_INCENTIVIZED;")
+dbGetQuery(con, "SELECT * FROM HOST_INCENTIVIZED;")
+                    
+             
+             
