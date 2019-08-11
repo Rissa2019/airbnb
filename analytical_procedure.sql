@@ -5,7 +5,6 @@ SELECT T.property_type, AVG(P.price) AS avg_price
 FROM properties AS P
 JOIN property_types AS T ON T.property_type_id = P.property_type_id
 GROUP BY T.property_type;
-
 SELECT * FROM AVG_PX_PROPERTY_TYPE;
 
 # 2. Average price by neighborhood group in descending order
@@ -16,7 +15,6 @@ JOIN neighborhood AS N ON N.neighborhood_id = L.neighborhood_id
 JOIN properties AS P ON P.location_id = L.location_id
 GROUP BY N.neighborhood_group
 ORDER BY avg_price DESC;
-
 SELECT * FROM AVG_PX_NEIGHBORHOOD_GROUP;
 
 
@@ -26,9 +24,7 @@ CREATE VIEW NUMBER_OF_REVIEWS_EACH_MONTH AS
 SELECT CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer) AS month, count(*) AS count
 FROM public.reviews
 GROUP BY CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer)
-ORDER BY CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer) ASC
-;
-
+ORDER BY CAST(extract(month from CAST(public.reviews.date AS timestamp)) AS integer) ASC;
 SELECT * FROM NUMBER_OF_REVIEWS_EACH_MONTH;
 
 
