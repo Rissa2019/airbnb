@@ -44,9 +44,7 @@ JOIN locations AS LO ON LO.location_id = P.location_id
 JOIN cities AS C ON C.city_id = LO.city_id
 WHERE C.city = 'Berlin'
 GROUP BY PR.property_type
-ORDER BY count DESC
-;
-
+ORDER BY count DESC;
 SELECT * FROM MOST_COMMENTS_BERLIN_PROPERTY_TYPE;
 
 
@@ -59,9 +57,7 @@ JOIN list AS L ON L.list_id = R.list_id
 JOIN properties AS P ON P.list_id = L.list_id
 WHERE EXTRACT(YEAR FROM R.date) = 2018
 GROUP BY P.properties_id
-ORDER BY count DESC
-;
-
+ORDER BY count DESC;
 SELECT * FROM MOST_POP_PROPERTY_2018;
 
 # 6. How many apartments are priced above $300?
@@ -70,9 +66,7 @@ CREATE VIEW TOT_NUMBER_APT_HOST_INCENTIVIZED AS
 SELECT COUNT(*)
 FROM properties AS P
 JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
-WHERE P.price > 300 AND PR.property_type = 'Apartment'
-;
-
+WHERE P.price > 300 AND PR.property_type = 'Apartment';
 SELECT * FROM TOT_NUMBER_APT_HOST_INCENTIVIZED;
 
 
@@ -84,7 +78,6 @@ FROM properties AS P
 JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
 JOIN hosts AS H ON H.host_id = P.host_id
 WHERE P.price > 300 AND PR.property_type = 'Apartment';
-
 SELECT * FROM HOST_INCENTIVIZED;
 
 
@@ -95,7 +88,6 @@ SELECT PR.property_type, AVG(P.accommodates) AS avg_accommodates
 FROM properties AS P
 JOIN property_types AS PR ON PR.property_type_id = P.property_type_id
 GROUP BY PR.property_type;
-
 SELECT * FROM AVG_NUMBER_ACCOMMODATES_PER_PROPERTY_TYPE;
 
 
@@ -107,7 +99,6 @@ FROM reviewers AS RE
 JOIN reviews AS R ON R.reviewer_id = RE.reviewer_id
 GROUP BY RE.reviewer_name
 ORDER BY reviews DESC;
-
 SELECT * FROM REVIEWERS_WITH_MOST_NUMBER_OF_REVIEWS;
 
 # 10. Hosts with most listings
@@ -119,6 +110,5 @@ JOIN properties AS P ON P.host_id = H.host_id
 GROUP BY H.host_id
 ORDER BY list_count DESC
 LIMIT 10;
-
 SELECT * FROM TOP_10_HOSTS_WITH_MOST_LISTINGS;
 
