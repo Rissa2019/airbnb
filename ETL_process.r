@@ -235,7 +235,6 @@ countries_df <- countries_df[c('country_id', 'country')]
 dbWriteTable(con, name="countries", value=countries_df
              , row.names=FALSE, append=TRUE)
 
-
 # Create table states
 data$state="Berlin"
 states_df <- as.data.frame(data[c('state')][!duplicated(data[c('state')]),])
